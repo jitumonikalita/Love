@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lovely — A Small Website for Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg1:#ff9a9e;--bg2:#fecfef;--card:#fff;--accent:#ff6b81;--muted:#6b6b6b}
+    *{box-sizing:border-box}body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#222;margin:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+    .container{width:100%;max-width:1100px;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.12);overflow:hidden}
+    header{display:flex;align-items:center;justify-content:space-between;padding:24px 32px}
+    .brand{display:flex;gap:16px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff8,transparent 30%),linear-gradient(135deg,#ff7aa2,#ffb3c6);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:20px;box-shadow:0 6px 18px rgba(255,107,129,0.25)}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:1fr 420px;gap:24px;padding:24px 32px}
+    @media(max-width:880px){.grid{grid-template-columns:1fr;padding:16px}}
+
+    /* Left column */
+    .hero{padding:26px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0.8));box-shadow:inset 0 1px 0 rgba(255,255,255,0.6)}
+    .hero h2{margin:0 0 8px;font-size:28px;color:#222}
+    .hero p{margin:0 0 16px;color:var(--muted)}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:10px 16px;border-radius:12px;border:0;cursor:pointer;font-weight:600}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-ghost{background:transparent;border:1px solid rgba(34,34,34,0.06)}
+
+    /* Love gallery */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+    .tile{background:linear-gradient(180deg,#fff,#fff0);padding:12px;border-radius:10px;display:flex;align-items:center;justify-content:center;min-height:84px;box-shadow:0 6px 14px rgba(0,0,0,0.04)}
+    .tile h3{margin:0;font-size:14px}
+
+    /* Right column */
+    .panel{padding:20px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.95),#fff);box-shadow:0 8px 20px rgba(0,0,0,0.05)}
+    .panel h3{margin:0 0 10px}
+    .quote{font-style:italic;color:#b23a4b;margin:0 0 14px}
+    .note{width:100%;min-height:96px;padding:12px;border-radius:10px;border:1px solid #f0d3da}
+    .small{font-size:13px;color:var(--muted)}
+
+    footer{padding:16px 32px;border-top:1px solid rgba(34,34,34,0.04);display:flex;justify-content:space-between;align-items:center}
+
+    /* animated hearts */
+    .hearts{position:fixed;left:8px;bottom:8px;pointer-events:none}
+    .heart{position:relative;width:18px;height:18px;transform:rotate(-45deg);margin:6px}
+    .heart:before,.heart:after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:rgba(255,107,129,0.9)}
+    .heart:before{top:-9px}
+    .heart:after{left:9px}
+    .float{animation:floatUp 6s linear infinite}
+    @keyframes floatUp{0%{transform:translateY(0) scale(0.9)}50%{transform:translateY(-30px) scale(1)}100%{transform:translateY(-120px) scale(0.6);opacity:0}}
+
+    /* tiny responsive */
+    @media(max-width:520px){.logo{width:48px;height:48px;font-size:18px}.panel{padding:14px}.hero h2{font-size:22px}}
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <div class="brand">
+        <div class="logo">❤</div>
+        <div>
+          <h1>Lovely</h1>
+          <p class="lead">A tiny website to share feelings, notes & quotes</p>
+        </div>
+      </div>
+      <nav aria-label="primary">
+        <button class="btn btn-ghost" onclick="copyLink()">Share</button>
+        <button class="btn btn-ghost" onclick="toggleTheme()">Theme</button>
+      </nav>
+    </header>
+
+    <div class="grid">
+      <section class="hero">
+        <h2>Send a note that'll make someone's day</h2>
+        <p>Write a small love note, pick a quote, or use the generated love letter. Copy it, send it, or print it — no accounts required.</p>
+        <div class="cta-row">
+          <button class="btn btn-primary" onclick="fillCompliment()">Generate a Love Line</button>
+          <button class="btn btn-ghost" onclick="randomQuote()">Surprise Quote</button>
+          <button class="btn btn-ghost" onclick="downloadCard()">Download Card</button>
+        </div>
+
+        <div class="gallery" aria-hidden="false">
+          <div class="tile"><h3>Romantic</h3></div>
+          <div class="tile"><h3>Heartfelt</h3></div>
+          <div class="tile"><h3>Playful</h3></div>
+          <div class="tile"><h3>Poetic</h3></div>
+          <div class="tile"><h3>Short & Sweet</h3></div>
+          <div class="tile"><h3>Long Letter</h3></div>
+        </div>
+      </section>
+
+      <aside class="panel" aria-labelledby="panel-title">
+        <h3 id="panel-title">Write & Share</h3>
+        <p class="quote" id="quote">"Love is composed of a single soul inhabiting two bodies." — Aristotle</p>
+
+        <textarea id="note" class="note" placeholder="Write your love note here..."></textarea>
+        <div style="display:flex;gap:8px;margin-top:12px;align-items:center">
+          <button class="btn btn-primary" onclick="copyNote()">Copy Note</button>
+          <button class="btn btn-ghost" onclick="mailtoNote()">Email</button>
+          <button class="btn btn-ghost" onclick="clearNote()">Clear</button>
+        </div>
+        <p class="small" style="margin-top:10px">Tip: click "Generate a Love Line" for a quick sweet sentence you can paste into a message.</p>
+      </aside>
+    </div>
+
+    <footer>
+      <div class="small">Made with ❤ — Customize this page however you like.</div>
+      <div class="small">No data is sent anywhere — everything stays in your browser.</div>
+    </footer>
+  </div>
+
+  <!-- floating hearts for a tiny bit of magic -->
+  <div class="hearts" aria-hidden="true">
+    <div class="heart float" style="left:0;animation-delay:0s"></div>
+    <div class="heart float" style="left:24px;animation-delay:1.5s"></div>
+    <div class="heart float" style="left:48px;animation-delay:3s"></div>
+  </div>
+
+  <script>
+    const quotes = [
+      "Love is composed of a single soul inhabiting two bodies. — Aristotle",
+      "Whatever our souls are made of, his and mine are the same. — Emily Brontë",
+      "You are my today and all of my tomorrows.",
+      "I love you not only for what you are, but for what I am when I am with you. — Roy Croft",
+      "In all the world, there is no heart for me like yours. — Maya Angelou",
+      "You make my heart smile."
+    ];
+
+    function randomQuote(){
+      const q = quotes[Math.floor(Math.random()*quotes.length)];
+      document.getElementById('quote').textContent = `"${q}"`;
+    }
+
+    function fillCompliment(){
+      const lines = [
+        "Every time I think of you my heart does a little dance.",
+        "You are the brightest part of my day.",
+        "If kisses were stars I'd give you the sky.",
+        "I still get butterflies just thinking of you.",
+        "Being with you feels like home."
+      ];
+      const pick = lines[Math.floor(Math.random()*lines.length)];
+      const note = document.getElementById('note');
+      note.value = pick + (note.value? '\n\n'+note.value : '');
+      note.focus();
+    }
+
+    function copyNote(){
+      const note = document.getElementById('note').value;
+      if(!note){alert('Write something first — a few words are perfect!');return}
+      navigator.clipboard?.writeText(note).then(()=>{alert('Copied to clipboard — paste it into your message!')},()=>{prompt('Copy this text',note)})
+    }
+
+    function mailtoNote(){
+      const note = encodeURIComponent(document.getElementById('note').value);
+      if(!note){alert('Write a note first.');return}
+      location.href = `mailto:?subject=A%20little%20note&body=${note}`;
+    }
+
+    function clearNote(){document.getElementById('note').value=''}
+
+    function copyLink(){
+      const url = location.href;
+      navigator.clipboard?.writeText(url).then(()=>alert('Page URL copied!'),()=>prompt('Copy this link',url))
+    }
+
+    function toggleTheme(){
+      document.body.classList.toggle('dark');
+      if(document.body.classList.contains('dark')){
+        document.documentElement.style.setProperty('--bg1','#2b4865');
+        document.documentElement.style.setProperty('--bg2','#0f2027');
+        document.documentElement.style.setProperty('--accent','#ff6b81');
+        document.documentElement.style.setProperty('--muted','#cfcfcf');
+      } else {
+        document.documentElement.style.setProperty('--bg1','#ff9a9e');
+        document.documentElement.style.setProperty('--bg2','#fecfef');
+        document.documentElement.style.setProperty('--muted','#6b6b6b');
+      }
+    }
+
+    // simple "download card" — create an open window with printable content
+    function downloadCard(){
+      const note = document.getElementById('note').value || document.getElementById('quote').textContent;
+      const card = `<!doctype html><html><head><meta charset=\"utf-8\"><title>Love Card</title><style>body{font-family:Inter,Arial;margin:40px;color:#222} .card{border-radius:14px;padding:30px;background:linear-gradient(135deg,#fff,#ffeef2);max-width:700px;margin:auto} h1{color:#b23a4b}</style></head><body><div class=\"card\"><h1>A little note</h1><p>${note.replace(/\n/g,'<br>')}</p></div></body></html>`;
+      const w = window.open('','_blank');
+      w.document.write(card);
+      w.document.close();
+    }
+
+    // keyboard shortcut: Ctrl/Cmd+Enter to copy
+    document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){copyNote()}})
+  </script>
+</body>
+</html>
