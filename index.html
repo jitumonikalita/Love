@@ -1,194 +1,164 @@
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lovely — A Small Website for Love</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <title>I Love You ❤️ — Animated</title>
   <style>
-    :root{--bg1:#ff9a9e;--bg2:#fecfef;--card:#fff;--accent:#ff6b81;--muted:#6b6b6b}
-    *{box-sizing:border-box}body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#222;margin:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
-    .container{width:100%;max-width:1100px;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.12);overflow:hidden}
-    header{display:flex;align-items:center;justify-content:space-between;padding:24px 32px}
-    .brand{display:flex;gap:16px;align-items:center}
-    .logo{width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff8,transparent 30%),linear-gradient(135deg,#ff7aa2,#ffb3c6);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:20px;box-shadow:0 6px 18px rgba(255,107,129,0.25)}
-    h1{margin:0;font-size:20px}
-    p.lead{margin:0;color:var(--muted);font-size:13px}
-    .grid{display:grid;grid-template-columns:1fr 420px;gap:24px;padding:24px 32px}
-    @media(max-width:880px){.grid{grid-template-columns:1fr;padding:16px}}
+    :root{
+      --bg1:#fff0f6; --bg2:#fff7fb; --accent:#ff4d6d; --accent-2:#ff9bb3; --glass: rgba(255,255,255,0.6);
+    }
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+    body{
+      display:grid;place-items:center;
+      background: radial-gradient(1200px 600px at 10% 20%, #ffeef6 0%, transparent 10%),
+                  radial-gradient(1000px 500px at 90% 80%, #eef6ff 0%, transparent 12%),
+                  linear-gradient(135deg,var(--bg1),var(--bg2));
+      overflow:hidden;
+    }
 
-    /* Left column */
-    .hero{padding:26px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0.8));box-shadow:inset 0 1px 0 rgba(255,255,255,0.6)}
-    .hero h2{margin:0 0 8px;font-size:28px;color:#222}
-    .hero p{margin:0 0 16px;color:var(--muted)}
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{padding:10px 16px;border-radius:12px;border:0;cursor:pointer;font-weight:600}
-    .btn-primary{background:var(--accent);color:#fff}
-    .btn-ghost{background:transparent;border:1px solid rgba(34,34,34,0.06)}
+    .card{
+      width:min(940px,92vw);
+      border-radius:20px;
+      padding:36px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.65));
+      box-shadow: 0 10px 30px rgba(16,24,40,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
 
-    /* Love gallery */
-    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
-    .tile{background:linear-gradient(180deg,#fff,#fff0);padding:12px;border-radius:10px;display:flex;align-items:center;justify-content:center;min-height:84px;box-shadow:0 6px 14px rgba(0,0,0,0.04)}
-    .tile h3{margin:0;font-size:14px}
+    h1{
+      font-size: clamp(32px, 5.5vw, 64px);
+      margin:0;color:var(--accent);
+      letter-spacing:-1px;font-weight:800;
+      display:flex;align-items:center;gap:12px;justify-content:center
+    }
 
-    /* Right column */
-    .panel{padding:20px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.95),#fff);box-shadow:0 8px 20px rgba(0,0,0,0.05)}
-    .panel h3{margin:0 0 10px}
-    .quote{font-style:italic;color:#b23a4b;margin:0 0 14px}
-    .note{width:100%;min-height:96px;padding:12px;border-radius:10px;border:1px solid #f0d3da}
-    .small{font-size:13px;color:var(--muted)}
+    .heart-large{
+      width:88px;height:88px;display:inline-block;transform-origin:center;filter:drop-shadow(0 8px 24px rgba(255,77,109,0.18));
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse{0%{transform:scale(0.96)}50%{transform:scale(1.06)}100%{transform:scale(0.96)}}
 
-    footer{padding:16px 32px;border-top:1px solid rgba(34,34,34,0.04);display:flex;justify-content:space-between;align-items:center}
+    p{color:#4b5563;margin-top:18px;margin-bottom:28px;font-size:18px}
 
-    /* animated hearts */
-    .hearts{position:fixed;left:8px;bottom:8px;pointer-events:none}
-    .heart{position:relative;width:18px;height:18px;transform:rotate(-45deg);margin:6px}
-    .heart:before,.heart:after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:rgba(255,107,129,0.9)}
-    .heart:before{top:-9px}
-    .heart:after{left:9px}
-    .float{animation:floatUp 6s linear infinite}
-    @keyframes floatUp{0%{transform:translateY(0) scale(0.9)}50%{transform:translateY(-30px) scale(1)}100%{transform:translateY(-120px) scale(0.6);opacity:0}}
+    .cta{display:inline-flex;gap:12px;align-items:center}
+    .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;color:white;padding:12px 20px;border-radius:999px;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(255,77,109,0.18);}
+    .btn:active{transform:scale(.98)}
 
-    /* tiny responsive */
-    @media(max-width:520px){.logo{width:48px;height:48px;font-size:18px}.panel{padding:14px}.hero h2{font-size:22px}}
+    /* floating tiny hearts container */
+    .hearts { position:absolute; inset:0; pointer-events:none; }
+    .heart{ position:absolute; width:22px; height:22px; opacity:0.9; transform-origin:center; }
+
+    /* rising hearts animation options */
+    @keyframes floatUp {
+      0%{ transform: translateY(0) scale(0.85); opacity:0 }
+      10%{ opacity:0.9 }
+      50%{ transform: translateY(-220px) scale(1.05) rotate(-6deg); opacity:0.9 }
+      100%{ transform: translateY(-420px) scale(1) rotate(8deg); opacity:0 }
+    }
+
+    /* subtle background pattern hearts */
+    .bg-heart{ position:absolute; opacity:0.07; filter:blur(8px); }
+
+    footer{ font-size:13px;color:#6b7280;margin-top:22px }
+
+    /* small responsive adjustments */
+    @media (max-width:520px){ .card{padding:22px;border-radius:16px} }
   </style>
 </head>
 <body>
-  <div class="container" role="main">
-    <header>
-      <div class="brand">
-        <div class="logo">❤</div>
-        <div>
-          <h1>Lovely</h1>
-          <p class="lead">A tiny website to share feelings, notes & quotes</p>
-        </div>
-      </div>
-      <nav aria-label="primary">
-        <button class="btn btn-ghost" onclick="copyLink()">Share</button>
-        <button class="btn btn-ghost" onclick="toggleTheme()">Theme</button>
-      </nav>
-    </header>
+  <main class="card" role="main">
+    <!-- decorative blurred hearts in the background -->
+    <svg class="bg-heart" style="left:-6%;top:-6%;width:360px;height:360px;" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path d="M12 21s-6.716-4.35-9-7.02C-1 10.39 3.187 4 8 6c2.04.97 3.07 3 4 3s1.96-2.03 4-3c4.813-2 9 4.39 5 7.98C18.716 16.65 12 21 12 21z" fill="#ff6f83"/>
+    </svg>
 
-    <div class="grid">
-      <section class="hero">
-        <h2>Send a note that'll make someone's day</h2>
-        <p>Write a small love note, pick a quote, or use the generated love letter. Copy it, send it, or print it — no accounts required.</p>
-        <div class="cta-row">
-          <button class="btn btn-primary" onclick="fillCompliment()">Generate a Love Line</button>
-          <button class="btn btn-ghost" onclick="randomQuote()">Surprise Quote</button>
-          <button class="btn btn-ghost" onclick="downloadCard()">Download Card</button>
-        </div>
+    <h1>
+      <svg class="heart-large" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path d="M12 21s-6.716-4.35-9-7.02C-1 10.39 3.187 4 8 6c2.04.97 3.07 3 4 3s1.96-2.03 4-3c4.813-2 9 4.39 5 7.98C18.716 16.65 12 21 12 21z" fill="url(#g)"/>
+        <defs>
+          <linearGradient id="g" x1="0" x2="1">
+            <stop offset="0" stop-color="#ff9bb3"/>
+            <stop offset="1" stop-color="#ff4d6d"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      I Love You
+    </h1>
 
-        <div class="gallery" aria-hidden="false">
-          <div class="tile"><h3>Romantic</h3></div>
-          <div class="tile"><h3>Heartfelt</h3></div>
-          <div class="tile"><h3>Playful</h3></div>
-          <div class="tile"><h3>Poetic</h3></div>
-          <div class="tile"><h3>Short & Sweet</h3></div>
-          <div class="tile"><h3>Long Letter</h3></div>
-        </div>
-      </section>
+    <p>Tiny animation, huge heart — this page is made just for you. Save it, share it, or surprise someone special.</p>
 
-      <aside class="panel" aria-labelledby="panel-title">
-        <h3 id="panel-title">Write & Share</h3>
-        <p class="quote" id="quote">"Love is composed of a single soul inhabiting two bodies." — Aristotle</p>
-
-        <textarea id="note" class="note" placeholder="Write your love note here..."></textarea>
-        <div style="display:flex;gap:8px;margin-top:12px;align-items:center">
-          <button class="btn btn-primary" onclick="copyNote()">Copy Note</button>
-          <button class="btn btn-ghost" onclick="mailtoNote()">Email</button>
-          <button class="btn btn-ghost" onclick="clearNote()">Clear</button>
-        </div>
-        <p class="small" style="margin-top:10px">Tip: click "Generate a Love Line" for a quick sweet sentence you can paste into a message.</p>
-      </aside>
+    <div class="cta">
+      <button class="btn" id="surpriseBtn">Surprise me</button>
+      <button class="btn" id="downloadBtn" style="background:transparent;color:var(--accent);border:2px solid var(--accent);">Download</button>
     </div>
 
-    <footer>
-      <div class="small">Made with ❤ — Customize this page however you like.</div>
-      <div class="small">No data is sent anywhere — everything stays in your browser.</div>
-    </footer>
-  </div>
+    <div class="hearts" id="hearts"></div>
 
-  <!-- floating hearts for a tiny bit of magic -->
-  <div class="hearts" aria-hidden="true">
-    <div class="heart float" style="left:0;animation-delay:0s"></div>
-    <div class="heart float" style="left:24px;animation-delay:1.5s"></div>
-    <div class="heart float" style="left:48px;animation-delay:3s"></div>
-  </div>
+    <footer>Tip: Right‑click → Save as to save this file as <strong>love.html</strong> and open it in your browser.</footer>
+  </main>
 
   <script>
-    const quotes = [
-      "Love is composed of a single soul inhabiting two bodies. — Aristotle",
-      "Whatever our souls are made of, his and mine are the same. — Emily Brontë",
-      "You are my today and all of my tomorrows.",
-      "I love you not only for what you are, but for what I am when I am with you. — Roy Croft",
-      "In all the world, there is no heart for me like yours. — Maya Angelou",
-      "You make my heart smile."
-    ];
+    // create rising hearts at random positions
+    const heartsEl = document.getElementById('hearts');
+    const colors = ['#ff7a8a','#ff5f86','#ffb1c0','#ff4d6d','#ff90aa'];
 
-    function randomQuote(){
-      const q = quotes[Math.floor(Math.random()*quotes.length)];
-      document.getElementById('quote').textContent = `"${q}"`;
+    function makeHeart(x, y, size, delay){
+      const ns = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox','0 0 24 24');
+      svg.setAttribute('class','heart');
+      svg.style.left = x + 'px';
+      svg.style.top = y + 'px';
+      svg.style.width = size + 'px';
+      svg.style.height = size + 'px';
+      svg.style.animation = `floatUp ${4 + Math.random()*3}s ease-in forwards`;
+      svg.style.animationDelay = delay + 's';
+      svg.innerHTML = `<path d="M12 21s-6.716-4.35-9-7.02C-1 10.39 3.187 4 8 6c2.04.97 3.07 3 4 3s1.96-2.03 4-3c4.813-2 9 4.39 5 7.98C18.716 16.65 12 21 12 21z" fill="${colors[Math.floor(Math.random()*colors.length)]}"/>`;
+      heartsEl.appendChild(svg);
+      // remove after animation
+      setTimeout(()=> svg.remove(), (5000 + Math.random()*2200));
     }
 
-    function fillCompliment(){
-      const lines = [
-        "Every time I think of you my heart does a little dance.",
-        "You are the brightest part of my day.",
-        "If kisses were stars I'd give you the sky.",
-        "I still get butterflies just thinking of you.",
-        "Being with you feels like home."
+    // generate ambient hearts periodically
+    setInterval(()=>{
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      // spawn near center horizontally to look like rising from card
+      const x = (w/2 - 120) + (Math.random()*240 - 120);
+      const y = (h/2) + 80 + (Math.random()*30);
+      makeHeart(x,y, 18 + Math.random()*18, Math.random()*0.4);
+    }, 600);
+
+    // Surprise button shows a loving message and bursts a few hearts
+    document.getElementById('surpriseBtn').addEventListener('click', ()=>{
+      const messages = [
+        "You're my favorite person.",
+        "Every day with you is a gift.",
+        "To the moon and back — always.",
+        "You make my heart smile."
       ];
-      const pick = lines[Math.floor(Math.random()*lines.length)];
-      const note = document.getElementById('note');
-      note.value = pick + (note.value? '\n\n'+note.value : '');
-      note.focus();
-    }
-
-    function copyNote(){
-      const note = document.getElementById('note').value;
-      if(!note){alert('Write something first — a few words are perfect!');return}
-      navigator.clipboard?.writeText(note).then(()=>{alert('Copied to clipboard — paste it into your message!')},()=>{prompt('Copy this text',note)})
-    }
-
-    function mailtoNote(){
-      const note = encodeURIComponent(document.getElementById('note').value);
-      if(!note){alert('Write a note first.');return}
-      location.href = `mailto:?subject=A%20little%20note&body=${note}`;
-    }
-
-    function clearNote(){document.getElementById('note').value=''}
-
-    function copyLink(){
-      const url = location.href;
-      navigator.clipboard?.writeText(url).then(()=>alert('Page URL copied!'),()=>prompt('Copy this link',url))
-    }
-
-    function toggleTheme(){
-      document.body.classList.toggle('dark');
-      if(document.body.classList.contains('dark')){
-        document.documentElement.style.setProperty('--bg1','#2b4865');
-        document.documentElement.style.setProperty('--bg2','#0f2027');
-        document.documentElement.style.setProperty('--accent','#ff6b81');
-        document.documentElement.style.setProperty('--muted','#cfcfcf');
-      } else {
-        document.documentElement.style.setProperty('--bg1','#ff9a9e');
-        document.documentElement.style.setProperty('--bg2','#fecfef');
-        document.documentElement.style.setProperty('--muted','#6b6b6b');
+      alert(messages[Math.floor(Math.random()*messages.length)]);
+      // small burst
+      for(let i=0;i<9;i++){
+        const cx = window.innerWidth/2 + (Math.random()*220 - 110);
+        const cy = window.innerHeight/2 + (Math.random()*20 - 30);
+        makeHeart(cx, cy, 22 + Math.random()*26, Math.random()*0.2);
       }
-    }
+    });
 
-    // simple "download card" — create an open window with printable content
-    function downloadCard(){
-      const note = document.getElementById('note').value || document.getElementById('quote').textContent;
-      const card = `<!doctype html><html><head><meta charset=\"utf-8\"><title>Love Card</title><style>body{font-family:Inter,Arial;margin:40px;color:#222} .card{border-radius:14px;padding:30px;background:linear-gradient(135deg,#fff,#ffeef2);max-width:700px;margin:auto} h1{color:#b23a4b}</style></head><body><div class=\"card\"><h1>A little note</h1><p>${note.replace(/\n/g,'<br>')}</p></div></body></html>`;
-      const w = window.open('','_blank');
-      w.document.write(card);
-      w.document.close();
-    }
-
-    // keyboard shortcut: Ctrl/Cmd+Enter to copy
-    document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){copyNote()}})
+    // Download button: creates a file and triggers download
+    document.getElementById('downloadBtn').addEventListener('click', ()=>{
+      const html = `<!doctype html>\n` + document.documentElement.outerHTML;
+      const blob = new Blob([html], {type:'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'love.html'; document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    });
   </script>
 </body>
-</html>
+  </html>
